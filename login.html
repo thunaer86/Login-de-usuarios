@@ -1,0 +1,75 @@
+<HTML>
+<HEAD>
+<TITLE>Validaci&oacute;n de usuarios</TITLE>
+<script src="js/jquery.js"></script>
+<link href="css/stylelogin.css" rel="stylesheet" type="text/css"/>
+<script>   
+$(function(){
+	$("#btn_login").click(function(){
+	var url = "checklogin.php"; // Script donde se verifican los datos de acceso.
+    $.ajax({
+           type: "POST", //metodo por el que se pasa el formulario
+           url: url, 
+           data: $("#form_login").serialize(), // Se envia los datos de los campos del formulario.
+           success: function(data) //Si se ha enviado bien pasa a esta funci—n.
+           {
+               $("#respuesta").html(data); // Aqui ponemos la respuesta que nos devuelve el PHP
+		if (variablejs==0) 	   // si la variable en = 0 es que es correcta y nos lleva al Index.	
+		 {
+		    window.location.href = "index.php"; //Carga la pagina de inicio
+		 } else {				//Si la variable es distinta de 0 es que los datos son incorrectos
+		    $("#respuesta").css({		//Formateo de la etiqueta que sale sino se han metido bien los datos.
+			"width"		  : "80%",
+			"margin"	  : "auto",
+			"height"	  :  "35px",
+			"padding-top"	  : "15px",
+			
+			"-webkit-border-radius": "5px",
+			"-moz-border-radius": "5px",
+			"border-radius": "5px",
+			"color":"#ffffff",
+			"background-image" : "-webkit-linear-gradient(top, #a90329, #6d0019)"
+			
+			});
+		 }
+           }
+         });
+
+    return false; // avoid to execute the actual submit of the form.
+	});
+});
+</script>
+</HEAD>
+<BODY>
+	<div class="contelogin">
+		
+		<div class="contelogin2">
+			<div class="cntimagen"><h2>Acceso usuarios</h2></div>	
+			<div style="text-align:center;">
+				<FORM id="form_login">
+					<div class="lineacampo">
+						<div class="labellog">
+							Usuario
+						</div>
+						<div class="inputlog">
+							<INPUT TYPE="text" NAME="login" class="campo">
+						</div>
+					</div>
+					<div class="lineacampo">
+						<div class="labellog">
+							Contrase&ntilde;a
+						</div>
+						<div class="inputlog">
+							<INPUT TYPE="password" NAME="password" class="campo">
+						</div>
+					</div>
+					<div style="margin-top: 10px;">
+						<INPUT id="btn_login" TYPE="submit" value="Entrar" class="campo">
+					</div>
+			</div>
+			<div id="respuesta"></div> <!-- Aqui se va a poner la respuesta del sistema de login  -->
+		</div>
+	</div>
+</FORM>
+</BODY>
+</HTML>
